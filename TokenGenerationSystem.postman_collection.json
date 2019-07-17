@@ -1,0 +1,62 @@
+{
+	"variables": [],
+	"info": {
+		"name": "TokenGenerationSystem",
+		"_postman_id": "9a33d26a-0373-4e8d-b797-fd67fcc9ff96",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "createCustomer",
+			"request": {
+				"url": "http://localhost:8090/customer/createCustomer",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"fggf\",\n    \"age\": 24,\n    \"yearsOfBond\":5,\n    \"token\": null\n        \n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "createTokens",
+			"request": {
+				"url": "http://localhost:8090/tokens/createTokens/11",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "assignToken",
+			"request": {
+				"url": "http://localhost:8090/tokens/assignToken",
+				"method": "POST",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,13 @@
+<h4>Please enter customer id for token generation</h4>
+<form #customerId = "ngForm" (ngSubmit) = "onClickSubmit(custId.value)" >
+  <input type = "text" #custId placeholder = "enter customer id" ngModel>
+  <br/>
+  <input type = "submit" value = "submit">
+</form>
+<nav>
+    <a routerLink="/createCustomer" routerLinkActive="active"><h3>Be a part of our Family!!!!!</h3></a>
+    <router-outlet></router-outlet>
+
+ 
+ 
+ 
