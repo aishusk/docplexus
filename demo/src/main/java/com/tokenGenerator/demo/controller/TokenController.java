@@ -3,11 +3,16 @@ package com.tokenGenerator.demo.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,7 +27,7 @@ import com.tokenGenerator.demo.services.TokenServiceImpl;
 
 //@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
-@RequestMapping(value = "tokens")
+//@RequestMapping(value = "tokens")
 public class TokenController {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired
@@ -36,9 +41,20 @@ public class TokenController {
 	private int counter = 3;
 	private static final String defaultStatus = "pending";
 	
-	@CrossOrigin(origins = "http://localhost:4200")
-	@PostMapping(value = "/createTokens/{custId}")
-	public Customer createTokens(@PathVariable("custId") int custId) {
+	//@CrossOrigin(origins="*")
+	@RequestMapping(value = "/tokens/createTokens/{custId}")
+	public ResponseEntity<Customer> createTokens(@PathVariable("custId") int custId) {
+					
+			Customer cust = createTokenById(custId);
+			MultiValueMap<String,String> headers = new HttpHeaders();
+			headers.add("Access-Control-Allow-Origin", "http://localhost:4200");
+			return new ResponseEntity<Customer>(cust, headers, HttpStatus.OK);
+	   	}
+		
+	
+
+	public Customer createTokenById(int custId)
+	{
 		Optional<Customer> customer = customerService.getCustomerById(custId);
 		if (customer == null) {
 			return null;
@@ -52,7 +68,6 @@ public class TokenController {
 			token.setStatus(defaultStatus); // initially token status set to pending
 			tokenService.insert(token);
 			customer.get().setToken(token); // setting the token value to the customer
-			;
 			logger.info("token is created for customer" + custId);
 			customerService.insert(customer.get());
 			/*
@@ -61,17 +76,16 @@ public class TokenController {
 			 * "GET, POST, DELETE, PUT") .allow("OPTIONS").build();
 			 */
 			return customer.get();
-		}
+
 	}
-	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	}
 	@GetMapping(value = "/getTokenById/{id}")
 	public Optional<Token> getToken(@PathVariable("id") int id) {
 		return tokenService.getTokenById(id);
 	}
 
-	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	@PostMapping(value = "/assignToken")
-	public List<Token> assignTokenToCounter() {
+	public ResponseEntity<List<Token>> assignTokenToCounter() {
 		List<Token> remainingTokens = tokenService.getWaitingList(); // getWaitingList() function returns the list with
 		List<Token> remainingPriorityCustomers= tokenService.getPriorityCustomers();
 		
@@ -90,7 +104,7 @@ public class TokenController {
 		}
 
 		counter = 3; // resetting the bank counter value
-		return remainingPriorityCustomers;
+		return  new ResponseEntity<List<Token>>(remainingPriorityCustomers,HttpStatus.OK);
 	}
 
 }

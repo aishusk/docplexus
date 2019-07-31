@@ -1,0 +1,24 @@
+<div>
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="Name">Enter Name</label>
+      <input type="text" class="form-control" id="name" required [(ngModel)]="name" name="name">
+    </div>
+    <div class="btn-group">
+      <button type="submit" class="btn btn-success">Submit</button>
+    </div>
+  </form>
+</div>
+<div *ngIf="customers">
+  <div *ngFor = "let customer of customers">
+    <div>
+      <label>Name: </label> {{customer.name}}
+    </div>
+    <div>
+      <label>Age: </label> {{customer.age}}
+    </div>
+    <div>
+      <label>Active: </label> {{customer.active}}
+    </div>
+  </div>
+</div>

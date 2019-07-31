@@ -1,0 +1,15 @@
+<div>
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="Name">Enter Name</label>
+      <input type="text" class="form-control" id="name" required [(ngModel)]="customer.name" name="name">
+    </div>
+    <div class = "form-group">
+      <label for="Age">Enter Age</label>
+      <input type="text" class="form-control" id = "age" required [(ngModel)]="customer.age" name="age">
+    </div>
+    <div class="btn-group">
+      <button type="submit" class="btn btn-success">Submit</button>
+    </div>
+  </form>
+</div>

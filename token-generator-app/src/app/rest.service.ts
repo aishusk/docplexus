@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse, HttpClientJsonpModule } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
 import { Customer } from './customer';
@@ -9,8 +9,7 @@ const tokenEndpoint = "http://localhost:8090/tokens";
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type':  'application/json',
-    'Access-Control-Allow-Origin': '*'
-
+    
   })
 };
 @Injectable({
@@ -28,7 +27,7 @@ export class RestService {
 
 getToken(id): Observable<any> {
   console.log(id);
-  return this.http.post<any>(tokenEndpoint+"/createToken/"+id,httpOptions).pipe(
+  return this.http.post<any>(tokenEndpoint+"/createTokens/"+id,null,httpOptions).pipe(
     tap((t)=>console.log("token is generated for id"+id))
   )
 }

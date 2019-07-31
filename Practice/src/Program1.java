@@ -3,8 +3,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public class Test {
-	public void prime(int num) {
+public class Program1 {
+	public boolean prime(int num) {
 		int temp;
 		boolean isPrime = true;
 		for (int i = 2; i <=num/2; i++) {
@@ -16,24 +16,26 @@ public class Test {
 		}
 
 		if (isPrime) {
-			System.out.println(num + "number is prime");
+			return true;
 		}
 
 		else {
-			System.out.println(num + "number is not a prime");
+			return false;
 		}
 
 	}
 	
-	public void reverseString(String test)
+	public String reverseString(String test)
 	{
 		String reverse="";
 		for(int i=test.length()-1;i>=0;i--)
 		{
-			System.out.println(reverse+test.charAt(i));
+			reverse = reverse+test.charAt(i);
+		}
+		return reverse;
 		}
 		
-	}
+	
 	
 	public void reverseNumber(int no)
 	{
@@ -63,11 +65,11 @@ public class Test {
 		}
 	}
 	public static void main(String[] args) {
-		Test t = new Test();
+		Program1 t = new Program1();
 		//t.prime(5);
-		//t.reverseString("aishu");
-		t.reverseNumber(1234);
-		t.fibonacci(9);
+		System.out.println(t.reverseString("aishu"));
+		//t.reverseNumber(1234);
+		//t.fibonacci(9);
 		HashMap<Integer, String> map = new HashMap<Integer, String>();
 		map.put(2, "Saket");
 		map.put(25, "Saurav");
